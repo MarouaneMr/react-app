@@ -1,25 +1,51 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import Sidebar from './components/Sidebar';
+import RecipeList from './components/RecipeList';
+import { getRecipes } from './recipeService';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    const [recipes, setRecipes] = useState([]);
+    const [filteredRecipes, setFilteredRecipes] = useState([]);
+    const [selectedCuisine, setSelectedCuisine] = useState('');
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const data = await getRecipes();
+                setRecipes(data);
+                setFilteredRecipes(data); // Initially, all recipes are shown
+            } catch (error) {
+                console.error('Error fetching recipes:', error);
+            }
+        };
+
+        fetchRecipes();
+    }, []);
+
+    useEffect(() => {
+        // Filter recipes whenever the selectedCuisine changes
+        if (selectedCuisine) {
+            const filtered = recipes.filter(recipe => recipe.cuisine === selectedCuisine);
+            setFilteredRecipes(filtered);
+        } else {
+            setFilteredRecipes(recipes);
+        }
+    }, [selectedCuisine, recipes]);
+
+    const handleCuisineChange = (cuisine) => {
+        setSelectedCuisine(cuisine);
+    };
+
+    return (
+        <div className="app">
+            <Sidebar onCuisineChange={handleCuisineChange} />
+            <main>
+                <h1>Recipe List</h1>
+                <RecipeList recipes={filteredRecipes} />
+            </main>
+        </div>
+    );
+};
 
 export default App;
