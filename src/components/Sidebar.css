@@ -1,3 +1,5 @@
+/* Sidebar.css */
+
 .sidebar {
     width: 250px;
     height: 100vh;
@@ -30,4 +32,39 @@
 
 .filter-section input[type="checkbox"] {
     margin-right: 10px;
+    visibility: hidden; /* Hide the default checkbox */
+}
+
+/* Style the custom checkbox */
+.filter-section input[type="checkbox"] + label {
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+}
+
+/* Style the checkbox indicator */
+.filter-section input[type="checkbox"] + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+/* Style the checkbox indicator when checked */
+.filter-section input[type="checkbox"]:checked + label:before {
+    background-color: #FA360E; /* Change to desired color */
+}
+
+/* Style the label text */
+.filter-section input[type="checkbox"] + label:after {
+    content: attr(for);
+    position: absolute;
+    left: 30px; /* Adjust as needed */
+    top: 0;
+    line-height: 20px;
 }
