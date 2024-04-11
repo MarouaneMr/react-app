@@ -1,12 +1,15 @@
 import React from 'react';
+import avocadoToastImage from '../images/Good_Food_Display_-_NCI_Visuals_Online-2.jpg'; // Import the image
 
 const RecipeCard = ({ recipe }) => {
-    const imageUrl = `/images/${recipe.imageFilename}`; // Construct image URL based on the filename
-    //const imageUrl = 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Good_Food_Display_-_NCI_Visuals_Online.jpg/800px-Good_Food_Display_-_NCI_Visuals_Online.jpg';
+    // Construct image URL based on the filename
+    const imageUrl = `/images/${recipe.imageFilename}`;
+
     return (
         <div style={{ border: '1px solid #ccc', padding: '20px', margin: '20px' }}>
             <h3>{recipe.name}</h3>
-            <img src={imageUrl} alt={recipe.name} style={{ width: '100%', marginBottom: '10px' }} />
+            {/* Use the imported image variable */}
+            <img src={avocadoToastImage} alt={recipe.name} style={{ width: '200px', marginBottom: '10px' }} /> {/* Adjust the width here */}
             <div>Time to cook: {recipe.time} minutes</div>
             <p>{recipe.instructions}</p>
         </div>
